@@ -12,7 +12,6 @@ using namespace std;
 
 int main(int argc, char **argv){	
 	Heap* heap = new Heap();
-	double elapsed, start, end;
 	if(argc < 3){
 		cout << "Faltam Argumentos!" << endl << "Uso: " << argv[0] << " <ENTRADA> <SAIDA.TXT>" << endl;
 		exit(1);
