@@ -16,8 +16,8 @@ int main(int argc, char **argv){
 	}
 
 	quick->Leitor(argv[1]);
-	//quick->QuickSort();
-	//quick->Imprime(argv[2]);
+	quick->QuickSort(0, quick->getTamanho());
+	quick->Imprime(argv[2]);
 
 	return 0;
 

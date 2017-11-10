@@ -5,6 +5,7 @@
 #include <fstream>
 #include <cstdlib>
 #include <vector>
+#include <utility>
 
 using namespace std;
 
@@ -12,8 +13,9 @@ class Quick{
 	public:
 		Quick();
 		~Quick();
+		int getTamanho();
 		void Leitor(string Nome);
-		void QuickSort();
+		void QuickSort(int ini, int fim);
 		void Imprime(string Nome);
 	private:
 		int tamanho;
@@ -26,15 +28,14 @@ Quick::Quick(){
 Quick::~Quick(){
 }
 
+int Quick::getTamanho(){
+	return vet.size();
+}
+
 void Quick::Leitor(string Nome){
 	int aux;
 	ifstream iFile;
 	iFile.open(Nome.c_str());
-
-	if(!iFile.is_open){
-		cout << "Erro ao ler o arquivo!" << endl;
-		exit(1);
-	}
 
 	iFile >> tamanho;
 
@@ -45,8 +46,47 @@ void Quick::Leitor(string Nome){
 	vet.pop_back();
 }
 
-void Quick::QuickSort(){
-	
+/* 
+	PSEUDOCODIGO INSPIRADO
+	function quicksort(array)
+    if length(array) > 1
+        pivot := select any element of array
+        left := first index of array
+        right := last index of array
+        while left ≤ right
+            while array[left] < pivot
+                left := left + 1
+            while array[right] > pivot
+                right := right - 1
+            if left ≤ right
+                swap array[left] with array[right]
+                left := left + 1
+                right := right - 1
+        quicksort(array from first index to right)
+        quicksort(array from left to last index)
+*/
+
+void Quick::QuickSort(int ini, int fim){
+	int pivo = vet[(ini + fim)/2];
+	int left = ini;
+	int right = fim;
+	int aux;
+
+	while(left <= right){
+ 		while(vet[left] < pivo)	left++;
+		while(vet[right] > pivo) right--;	
+
+		if(left <= right){ 
+			swap(vet[right], vet[left]);
+			left++;
+			right--;
+		}
+	}
+
+	if(right > ini)
+		QuickSort(ini, right);
+	if(left < fim)
+		QuickSort(left+1, fim);
 }
 
 void Quick::Imprime(string Nome){
@@ -54,10 +94,10 @@ void Quick::Imprime(string Nome){
 	oFile.open(Nome.c_str());
 
 	for(int i = 0; i < vet.size(); i++){
-		oFile >> vet[i] << endl;
+		oFile << vet[i] << endl;
 	}
 
-	oFile.close;
+	oFile.close();
 }
 
 #endif
